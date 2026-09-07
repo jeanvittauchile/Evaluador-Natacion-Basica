@@ -1,0 +1,47 @@
+# Dependencias
+node_modules/
+.pnp
+.pnp.js
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Builds nativos
+android/
+ios/
+*.apk
+*.aab
+*.ipa
+
+# Secretos — nunca subir
+.env
+.env.*
+!.env.example
+google-services.json
+GoogleService-Info.plist
+*.keystore
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+credentials.json
+client_secret*.json
+
+# Base de datos local y logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.pem
+
+# Editores
+.vscode/
+.idea/
+*.swp

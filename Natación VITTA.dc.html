@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"><style>
+body{margin:0;background:#EDE8DA;font-family:Barlow,system-ui,sans-serif}
+a{color:#1F4C86}a:hover{color:#2E7FB8}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:700 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#16305B;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 Barlow,sans-serif;color:#16305B}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}
+.dv-oid{font:700 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(22,48,91,.1);color:#16305B;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 Barlow,sans-serif;color:rgba(16,35,63,.6)}
+.dv-opt:target .dv-oid{background:#2E7FB8;color:#fff}
+.dv-next{margin:24px 0 0;font:13px/1.5 Barlow,sans-serif;color:rgba(16,35,63,.55)}
+</style></helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">App de evaluación técnica de natación · UMCE · Pedagogía en Educación Física, generación 2026</span></div>
+
+<div style="max-width:940px;margin:0 0 34px;background:#F7F4E9;border:1px solid rgba(22,48,91,.14);border-radius:10px;padding:26px 30px">
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:18px"><img src="assets/vitta-logo.png" alt="VITTA" style="width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid rgba(22,48,91,.12)"><div><div style="font:700 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#2E7FB8">Supuestos y razonamiento de diseño</div><div style="font:600 20px/1.2 Barlow,sans-serif;color:#16305B;margin-top:5px">Evaluar la sección completa en 60 minutos, al borde del agua</div><div style="font:500 12.5px/1.35 Barlow,sans-serif;color:#5C5340;margin-top:5px">Universidad Metropolitana de Ciencias de la Educación · Carrera de Pedagogía en Educación Física · Generación 2026</div></div></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px 26px;font:400 13.5px/1.55 Barlow,sans-serif;color:#28374F">
+<div><div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B4553F;margin-bottom:6px">Restricción central</div>Un nadador a la vez, 50 m en piscina de 25 m: dos largos. Se registran <strong>10 observaciones</strong> en el orden real de la prueba — sub acuático y break out aparecen dos veces, tras la partida y tras el viraje — y consolidan en los 8 criterios oficiales.</div>
+<div><div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B4553F;margin-bottom:6px">Prueba incompleta</div>Si el estudiante no termina los 50 m, se marca la prueba como incompleta: los criterios no observados quedan <strong>N/O</strong> y la nota se calcula sobre el puntaje máximo observado, no sobre el puntaje total de la prueba. La fila sube a Sheets con esa marca para no confundirla con una prueba completa.</div>
+<div><div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B4553F;margin-bottom:6px">Nota</div>Puntaje total de la prueba: <strong>10–30 puntos</strong> (una observación por fase, 1–3 cada una) y conversión a escala chilena 1,0–7,0 con exigencia ajustable, 60% por defecto. También puede consolidarse en los 8 criterios oficiales (8–24) desde Tweaks. La nota general del estudiante promedia las <em>notas</em> de los estilos ya evaluados, nunca los pendientes.</div>
+<div><div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B4553F;margin-bottom:6px">Offline primero</div>Todo se guarda al instante en el dispositivo; la nube es un estado, no un requisito. El encabezado siempre dice cuántas evaluaciones esperan subir a Google Sheets.</div>
+<div><div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B4553F;margin-bottom:6px">Sol y agua</div>Fondo crema opaco, tinta azul marino de la marca y tres colores de puntaje con contraste alto — legible bajo sol directo, sin degradados ni sombras suaves.</div>
+</div>
+</div>
+
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Prototipo · 9 pantallas navegables</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+<div style="height:100%;display:flex;flex-direction:column;background:#F7F4E9;font-family:Barlow,system-ui,sans-serif">
+
+<div style="flex-shrink:0;padding:58px 20px 12px;background:#16305B;color:#fff">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+<div>
+<div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#8FBBDD">UMCE · Pedagogía en Ed. Física</div>
+<div style="font:600 19px/1.2 Barlow,sans-serif;margin-top:3px">{{ headerTitle }}</div>
+</div>
+<div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border-radius:100px;padding:5px 10px 5px 8px">
+<span style="width:8px;height:8px;border-radius:50%;background:#E0A93C;display:block"></span>
+<span style="font:600 11.5px/1 Barlow,sans-serif;color:#DCE8F4">{{ syncLabel }}</span>
+</div>
+</div>
+</div>
+
+<div style="flex:1;overflow:auto;-webkit-overflow-scrolling:touch">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 20px 26px;display:flex;flex-direction:column;gap:14px">
+<div style="background:#16305B;border-radius:14px;padding:18px 20px;color:#fff">
+<div style="display:flex;justify-content:space-between;align-items:flex-start">
+<div><div style="display:flex;align-items:center;gap:9px"><div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8FBBDD">Sesión activa</div><button onClick="{{ goSesion }}" style="border:1px solid rgba(255,255,255,.35);background:transparent;color:#DCE8F4;border-radius:100px;padding:3px 10px;cursor:pointer;font:600 10.5px/1 Barlow,sans-serif">Editar</button></div>
+<div style="font:600 21px/1.15 Barlow,sans-serif;margin-top:8px">{{ sAsignatura }}</div>
+<div style="font:400 13px/1.4 Barlow,sans-serif;color:#B9CDE2;margin-top:4px">{{ sLinea1 }}</div>
+<div style="font:400 13px/1.4 Barlow,sans-serif;color:#B9CDE2;margin-top:2px">{{ sLinea2 }}</div></div>
+<div style="text-align:right;flex-shrink:0"><div style="font:700 30px/1 'Barlow Condensed',sans-serif">{{ doneCount }}<span style="font-size:17px;color:#8FBBDD">/{{ totalCount }}</span></div><div style="font:600 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8FBBDD;margin-top:4px">Evaluados</div></div>
+</div>
+<div style="height:6px;border-radius:100px;background:rgba(255,255,255,.18);margin-top:16px;overflow:hidden"><div style="height:100%;background:#4A96C4;border-radius:100px;width:{{ barWidth }}"></div></div>
+<div style="display:flex;justify-content:space-between;font:500 11.5px/1 Barlow,sans-serif;color:#B9CDE2;margin-top:9px"><span>Ritmo: 2 min 40 s por estudiante</span><span>{{ paceLeft }}</span></div>
+</div>
+
+<button onClick="{{ goStudents }}" style="width:100%;border:0;background:#2E7FB8;color:#fff;border-radius:14px;padding:17px 20px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+<span><span style="display:block;font:600 17px/1.2 Barlow,sans-serif">Continuar evaluación</span><span style="display:block;font:400 12.5px/1.3 Barlow,sans-serif;color:#D6E8F5;margin-top:2px">Sigue Camila Ríos · Espalda</span></span>
+<span style="font:700 22px/1 Barlow,sans-serif">›</span>
+</button>
+
+<div style="display:flex;gap:12px">
+<button onClick="{{ goNew }}" style="flex:1;border:1px solid rgba(22,48,91,.18);background:#FFFCF4;border-radius:14px;padding:15px 14px;text-align:left;cursor:pointer">
+<span style="display:block;font:700 20px/1 'Barlow Condensed',sans-serif;color:#2E7FB8">+</span>
+<span style="display:block;font:600 14px/1.2 Barlow,sans-serif;color:#16305B;margin-top:6px">Nuevo estudiante</span></button>
+<button onClick="{{ goRubric }}" style="flex:1;border:1px solid rgba(22,48,91,.18);background:#FFFCF4;border-radius:14px;padding:15px 14px;text-align:left;cursor:pointer">
+<span style="display:block;font:700 20px/1 'Barlow Condensed',sans-serif;color:#2E7FB8">☰</span>
+<span style="display:block;font:600 14px/1.2 Barlow,sans-serif;color:#16305B;margin-top:6px">Rúbrica</span></button>
+</div>
+
+<div style="background:#FBF7EC;border:1px solid rgba(224,169,60,.5);border-radius:14px;padding:15px 17px">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font:600 14px/1.2 Barlow,sans-serif;color:#16305B">Pendientes de subir</div><div style="font:700 15px/1 Barlow,sans-serif;color:#B4553F">{{ pendingCount }}</div></div>
+<div style="font:400 12.5px/1.45 Barlow,sans-serif;color:#5C5340;margin-top:6px">Se enviarán a <em>Evaluaciones Natación 2026</em> en Google Sheets cuando vuelva la señal. Nada se pierde: la cola reintenta sola.</div>
+</div>
+
+<div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A8270;margin-top:4px">Últimas evaluaciones</div>
+<sc-for list="{{ recent }}" as="r" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:12px;background:#FFFCF4;border:1px solid rgba(22,48,91,.1);border-radius:12px;padding:12px 14px">
+<div style="width:36px;height:36px;border-radius:9px;background:#E4EDF5;display:flex;align-items:center;justify-content:center;font:700 13px/1 Barlow,sans-serif;color:#1F4C86;flex-shrink:0">{{ r.ini }}</div>
+<div style="flex:1;min-width:0"><div style="font:600 14.5px/1.2 Barlow,sans-serif;color:#16305B">{{ r.name }}</div><div style="font:400 12px/1.3 Barlow,sans-serif;color:#8A8270;margin-top:2px">{{ r.detail }}</div></div>
+<div style="font:700 19px/1 'Barlow Condensed',sans-serif;color:#1B6E7C">{{ r.nota }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSesion }}" hint-placeholder-val="{{ false }}">
+<div style="padding:18px 20px 26px;display:flex;flex-direction:column;gap:15px">
+<div style="font:400 13.5px/1.5 Barlow,sans-serif;color:#5C5340">Estos datos encabezan cada evaluación y viajan con la fila a Google Sheets.</div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">Asignatura</div>
+<input value="{{ sAsignaturaVal }}" onChange="{{ setAsignatura }}" style="width:100%;box-sizing:border-box;background:#FFFCF4;border:1px solid rgba(22,48,91,.2);border-radius:12px;padding:14px;font:600 16px/1.2 Barlow,sans-serif;color:#16305B" /></div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">Sección</div>
+<div style="display:flex;gap:8px">
+<sc-for list="{{ seccionOpts }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="flex:1;border:1px solid rgba(22,48,91,.16);background:{{ o.bg }};color:{{ o.fg }};border-radius:10px;padding:12px 6px;cursor:pointer;font:600 14px/1 Barlow,sans-serif">{{ o.name }}</button>
+</sc-for>
+</div></div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">Lugar</div>
+<input value="{{ sLugarVal }}" onChange="{{ setLugar }}" style="width:100%;box-sizing:border-box;background:#FFFCF4;border:1px solid rgba(22,48,91,.2);border-radius:12px;padding:14px;font:500 16px/1.2 Barlow,sans-serif;color:#16305B" /></div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">Día y hora</div>
+<input value="{{ sHorarioVal }}" onChange="{{ setHorario }}" style="width:100%;box-sizing:border-box;background:#FFFCF4;border:1px solid rgba(22,48,91,.2);border-radius:12px;padding:14px;font:500 16px/1.2 Barlow,sans-serif;color:#16305B" /></div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">Estilos de la sesión</div>
+<input value="{{ sEstilosVal }}" onChange="{{ setEstilos }}" style="width:100%;box-sizing:border-box;background:#FFFCF4;border:1px solid rgba(22,48,91,.2);border-radius:12px;padding:14px;font:500 16px/1.2 Barlow,sans-serif;color:#16305B" /></div>
+<button onClick="{{ goHome }}" style="width:100%;border:0;background:#2E7FB8;color:#fff;border-radius:13px;padding:16px;cursor:pointer;font:600 16px/1 Barlow,sans-serif">Listo</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isStudents }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px;background:#FFFCF4;border:1px solid rgba(22,48,91,.14);border-radius:12px;padding:12px 14px">
+<span style="font:600 15px/1 Barlow,sans-serif;color:#8A8270">⌕</span>
+<span style="font:400 14.5px/1 Barlow,sans-serif;color:#8A8270">Buscar por nombre o sección</span>
+</div>
+<div style="display:flex;gap:8px;overflow:auto;padding-bottom:2px">
+<span style="flex-shrink:0;background:#16305B;color:#fff;border-radius:100px;padding:7px 14px;font:600 12.5px/1 Barlow,sans-serif">{{ chipSeccion }}</span>
+<span style="flex-shrink:0;background:#FFFCF4;border:1px solid rgba(22,48,91,.16);color:#28374F;border-radius:100px;padding:7px 14px;font:600 12.5px/1 Barlow,sans-serif">Pendientes</span>
+<span style="flex-shrink:0;background:#FFFCF4;border:1px solid rgba(22,48,91,.16);color:#28374F;border-radius:100px;padding:7px 14px;font:600 12.5px/1 Barlow,sans-serif">Sin subir</span>
+</div>
+<sc-for list="{{ students }}" as="s" hint-placeholder-count="6">
+<button onClick="{{ s.open }}" style="width:100%;border:1px solid rgba(22,48,91,.1);background:#FFFCF4;border-radius:13px;padding:13px 14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px">
+<div style="width:40px;height:40px;border-radius:10px;background:#E4EDF5;display:flex;align-items:center;justify-content:center;font:700 14px/1 Barlow,sans-serif;color:#1F4C86;flex-shrink:0">{{ s.ini }}</div>
+<div style="flex:1;min-width:0">
+<div style="font:600 15.5px/1.2 Barlow,sans-serif;color:#16305B">{{ s.name }}</div>
+<div style="font:400 12px/1.3 Barlow,sans-serif;color:#8A8270;margin-top:3px">{{ s.detail }}</div>
+</div>
+<div style="text-align:right;flex-shrink:0">
+<div style="font:700 21px/1 'Barlow Condensed',sans-serif;color:#16305B">{{ s.nota }}</div>
+<div style="font:600 9.5px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A8270;margin-top:3px">{{ s.notaLabel }}</div>
+</div>
+</button>
+</sc-for>
+<button onClick="{{ goNew }}" style="width:100%;border:1px dashed rgba(22,48,91,.32);background:transparent;border-radius:13px;padding:15px;cursor:pointer;font:600 14.5px/1 Barlow,sans-serif;color:#1F4C86">+ Agregar estudiante a la sección</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNew }}" hint-placeholder-val="{{ false }}">
+<div style="padding:18px 20px 26px;display:flex;flex-direction:column;gap:16px">
+<div style="font:400 13.5px/1.5 Barlow,sans-serif;color:#5C5340">Los datos quedan en el dispositivo al guardar. El nombre y la sección son obligatorios.</div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">Nombre</div>
+<div style="background:#FFFCF4;border:1px solid rgba(22,48,91,.2);border-radius:12px;padding:14px;font:500 16px/1 Barlow,sans-serif;color:#16305B">Matías</div></div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">Apellidos</div>
+<div style="background:#FFFCF4;border:1.5px solid #B4553F;border-radius:12px;padding:14px;font:500 16px/1 Barlow,sans-serif;color:#B0A896">Apellido paterno y materno</div>
+<div style="font:500 12.5px/1.4 Barlow,sans-serif;color:#B4553F;margin-top:6px">Falta el apellido — se usa para ordenar la lista y evitar duplicados.</div></div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">Sección</div>
+<div style="display:flex;gap:8px"><span style="background:#16305B;color:#fff;border-radius:10px;padding:11px 17px;font:600 14.5px/1 Barlow,sans-serif">Sección 2</span><span style="background:#FFFCF4;border:1px solid rgba(22,48,91,.16);color:#28374F;border-radius:10px;padding:11px 17px;font:600 14.5px/1 Barlow,sans-serif">Sección 1</span><span style="background:#FFFCF4;border:1px solid rgba(22,48,91,.16);color:#28374F;border-radius:10px;padding:11px 17px;font:600 14.5px/1 Barlow,sans-serif">Sección 3</span></div></div>
+<div><div style="font:600 11px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8270;margin-bottom:7px">RUT <span style="text-transform:none;letter-spacing:0;font-weight:400">(opcional)</span></div>
+<div style="background:#FFFCF4;border:1px solid rgba(22,48,91,.2);border-radius:12px;padding:14px;font:500 16px/1 Barlow,sans-serif;color:#B0A896">12.345.678-5</div>
+<div style="font:400 12px/1.4 Barlow,sans-serif;color:#8A8270;margin-top:6px">Se valida el dígito verificador antes de guardar.</div></div>
+<button onClick="{{ goStudents }}" style="width:100%;border:0;background:#2E7FB8;color:#fff;border-radius:13px;padding:16px;cursor:pointer;font:600 16px/1 Barlow,sans-serif">Guardar estudiante</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isStyle }}" hint-placeholder-val="{{ false }}">
+<div style="padding:18px 20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:13px;background:#FFFCF4;border:1px solid rgba(22,48,91,.12);border-radius:13px;padding:14px">
+<div style="width:44px;height:44px;border-radius:11px;background:#E4EDF5;display:flex;align-items:center;justify-content:center;font:700 15px/1 Barlow,sans-serif;color:#1F4C86">CR</div>
+<div style="flex:1"><div style="font:600 17px/1.2 Barlow,sans-serif;color:#16305B">Camila Ríos Vega</div><div style="font:400 12.5px/1.3 Barlow,sans-serif;color:#8A8270;margin-top:2px">{{ fichaSeccion }}</div></div>
+<div style="text-align:right"><div style="font:700 24px/1 'Barlow Condensed',sans-serif;color:#1B6E7C">{{ fichaNota }}</div><div style="font:600 9.5px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A8270;margin-top:2px">General</div></div>
+</div>
+<div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A8270;margin-top:4px">Elige el estilo a evaluar</div>
+<sc-for list="{{ styleCards }}" as="st" hint-placeholder-count="4">
+<button onClick="{{ st.open }}" style="width:100%;border:1px solid rgba(22,48,91,.12);background:#FFFCF4;border-radius:13px;padding:16px 16px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:14px">
+<div style="width:5px;height:42px;border-radius:100px;background:#2E7FB8;flex-shrink:0"></div>
+<div style="flex:1"><div style="font:600 19px/1.15 Barlow,sans-serif;color:#16305B">{{ st.name }}</div><div style="font:400 12.5px/1.3 Barlow,sans-serif;color:#8A8270;margin-top:3px">{{ st.status }}</div></div>
+<div style="text-align:right"><div style="font:700 23px/1 'Barlow Condensed',sans-serif;color:#16305B">{{ st.nota }}</div><div style="font:600 9.5px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A8270;margin-top:2px">{{ st.pts }}</div></div>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEval }}" hint-placeholder-val="{{ false }}">
+<div style="padding:14px 16px 20px">
+<div style="display:flex;align-items:center;justify-content:space-between;background:#FFFCF4;border:1px solid rgba(22,48,91,.12);border-radius:12px;padding:11px 14px;margin-bottom:12px">
+<div><div style="font:600 15.5px/1.15 Barlow,sans-serif;color:#16305B">Camila Ríos · 50 m Espalda</div><div style="font:400 11.5px/1.3 Barlow,sans-serif;color:#8A8270;margin-top:2px">{{ evalProgress }}</div></div>
+<div style="text-align:right"><div style="font:700 22px/1 'Barlow Condensed',sans-serif;color:#16305B">{{ evalPts }}<span style="font-size:13px;color:#8A8270">/{{ evalMax }}</span></div><div style="font:600 9.5px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A8270">Puntaje</div></div>
+</div>
+<sc-if value="{{ completa }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ toggleIncompleta }}" style="width:100%;border:1px dashed rgba(180,85,63,.45);background:transparent;border-radius:11px;padding:10px;cursor:pointer;font:600 12.5px/1 Barlow,sans-serif;color:#B4553F;margin-bottom:12px">Marcar prueba incompleta (no terminó los 50 m)</button>
+</sc-if>
+<sc-if value="{{ incompleta }}" hint-placeholder-val="{{ false }}">
+<div style="background:#F8E9E2;border:1px solid rgba(180,85,63,.45);border-radius:12px;padding:12px 14px;margin-bottom:12px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><div style="font:600 13.5px/1.2 Barlow,sans-serif;color:#8A3A26">Prueba incompleta</div><button onClick="{{ toggleIncompleta }}" style="border:0;background:transparent;cursor:pointer;font:600 12px/1 Barlow,sans-serif;color:#8A3A26;text-decoration:underline;padding:0">Deshacer</button></div>
+<div style="font:400 12px/1.45 Barlow,sans-serif;color:#6B3223;margin-top:5px">{{ incompletaLabel }}. La nota se calcula sobre el puntaje observado y la fila se marca como <em>incompleta</em> en Google Sheets.</div>
+</div>
+</sc-if>
+<div style="display:flex;gap:7px;padding:0 0 8px 0">
+<div style="flex:1;font:600 9.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8270">Criterio · toca para ver la rúbrica</div>
+<div style="width:52px;text-align:center;font:700 9.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#B4553F">No log.</div>
+<div style="width:52px;text-align:center;font:700 9.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#9A7A28">Median.</div>
+<div style="width:52px;text-align:center;font:700 9.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1B6E7C">Logrado</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:7px">
+<sc-for list="{{ critRows }}" as="c" hint-placeholder-count="8">
+<div style="display:flex;flex-direction:column;gap:7px">
+<sc-if value="{{ c.newGroup }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:9px;padding:6px 2px 0"><span style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#2E7FB8">{{ c.group }}</span><span style="flex:1;height:1px;background:rgba(22,48,91,.14)"></span><span style="font:600 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:#8A8270">{{ c.dist }}</span></div>
+</sc-if>
+<div style="background:#FFFCF4;border:1px solid rgba(22,48,91,.1);border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:7px;padding:6px 8px 6px 12px">
+<button onClick="{{ c.toggle }}" style="flex:1;min-width:0;border:0;background:transparent;text-align:left;cursor:pointer;padding:6px 0">
+<div style="display:flex;align-items:center;gap:6px"><span style="font:600 14.5px/1.15 Barlow,sans-serif;color:#16305B">{{ c.name }}</span>
+<sc-if value="{{ c.hasTag }}" hint-placeholder-val="{{ false }}"><span style="font:700 9px/1 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#1F4C86;background:#E0EAF3;border-radius:5px;padding:3px 6px">{{ c.tag }}</span></sc-if>
+</div>
+<div style="font:400 11px/1.2 Barlow,sans-serif;color:#8A8270;margin-top:2px">{{ c.hint }}</div>
+</button>
+<button onClick="{{ c.set1 }}" style="width:52px;height:52px;flex-shrink:0;position:relative;border:1px solid rgba(180,85,63,.35);background:#FBF1EC;border-radius:11px;cursor:pointer;padding:0;overflow:hidden">
+<sc-if value="{{ c.sel1 }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background:#B4553F"></span><span style="position:relative;font:700 21px/1 'Barlow Condensed',sans-serif;color:#FFF4EE">1</span></sc-if>
+<sc-if value="{{ c.no1 }}" hint-placeholder-val="{{ true }}"><span style="position:relative;font:700 21px/1 'Barlow Condensed',sans-serif;color:#B4553F">1</span></sc-if>
+</button>
+<button onClick="{{ c.set2 }}" style="width:52px;height:52px;flex-shrink:0;position:relative;border:1px solid rgba(154,122,40,.35);background:#FBF6EA;border-radius:11px;cursor:pointer;padding:0;overflow:hidden">
+<sc-if value="{{ c.sel2 }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background:#9A7A28"></span><span style="position:relative;font:700 21px/1 'Barlow Condensed',sans-serif;color:#FFF9EC">2</span></sc-if>
+<sc-if value="{{ c.no2 }}" hint-placeholder-val="{{ true }}"><span style="position:relative;font:700 21px/1 'Barlow Condensed',sans-serif;color:#9A7A28">2</span></sc-if>
+</button>
+<button onClick="{{ c.set3 }}" style="width:52px;height:52px;flex-shrink:0;position:relative;border:1px solid rgba(27,110,124,.35);background:#EDF5F6;border-radius:11px;cursor:pointer;padding:0;overflow:hidden">
+<sc-if value="{{ c.sel3 }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;background:#1B6E7C"></span><span style="position:relative;font:700 21px/1 'Barlow Condensed',sans-serif;color:#EFF9FA">3</span></sc-if>
+<sc-if value="{{ c.no3 }}" hint-placeholder-val="{{ true }}"><span style="position:relative;font:700 21px/1 'Barlow Condensed',sans-serif;color:#1B6E7C">3</span></sc-if>
+</button>
+</div>
+<sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid rgba(22,48,91,.08);background:#F4F0E2;padding:11px 12px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;gap:9px"><span style="flex-shrink:0;width:20px;height:20px;border-radius:6px;background:#B4553F;color:#fff;font:700 12px/20px 'Barlow Condensed',sans-serif;text-align:center">1</span><span style="font:400 12.5px/1.4 Barlow,sans-serif;color:#4A4534">{{ c.d1 }}</span></div>
+<div style="display:flex;gap:9px"><span style="flex-shrink:0;width:20px;height:20px;border-radius:6px;background:#9A7A28;color:#fff;font:700 12px/20px 'Barlow Condensed',sans-serif;text-align:center">2</span><span style="font:400 12.5px/1.4 Barlow,sans-serif;color:#4A4534">{{ c.d2 }}</span></div>
+<div style="display:flex;gap:9px"><span style="flex-shrink:0;width:20px;height:20px;border-radius:6px;background:#1B6E7C;color:#fff;font:700 12px/20px 'Barlow Condensed',sans-serif;text-align:center">3</span><span style="font:400 12.5px/1.4 Barlow,sans-serif;color:#4A4534">{{ c.d3 }}</span></div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+<button onClick="{{ goSummary }}" style="width:100%;border:0;background:#16305B;color:#fff;border-radius:13px;padding:16px;cursor:pointer;font:600 16px/1 Barlow,sans-serif;margin-top:14px">{{ evalCta }}</button>
+<div style="font:400 12px/1.4 Barlow,sans-serif;color:#8A8270;text-align:center;margin-top:9px">Guardado local automático en cada toque.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSummary }}" hint-placeholder-val="{{ false }}">
+<div style="padding:18px 20px 26px;display:flex;flex-direction:column;gap:13px">
+<div style="background:#16305B;border-radius:15px;padding:20px;color:#fff">
+<div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8FBBDD">Espalda · nota del estilo</div>
+<div style="font:700 52px/1 'Barlow Condensed',sans-serif;margin-top:5px">{{ evalNota }}</div>
+<div style="font:400 12.5px/1.4 Barlow,sans-serif;color:#B9CDE2;margin-top:2px">{{ evalPtsLabel }} · {{ escalaLabel }} · exigencia {{ exigenciaLabel }}</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.18)">
+<div style="font:600 12.5px/1.3 Barlow,sans-serif;color:#8FBBDD">Nota general del estudiante</div>
+<div style="font:700 29px/1 'Barlow Condensed',sans-serif;flex-shrink:0">{{ notaGeneral }}</div>
+</div>
+<div style="font:400 11.5px/1.35 Barlow,sans-serif;color:#B9CDE2;margin-top:5px">{{ notaGeneralDetail }}</div>
+</div>
+<div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A8270;margin-top:4px">Detalle por criterio</div>
+<div style="background:#FFFCF4;border:1px solid rgba(22,48,91,.1);border-radius:13px;padding:6px 14px">
+<sc-for list="{{ sumRows }}" as="c" hint-placeholder-count="8">
+<div style="display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid rgba(22,48,91,.07)">
+<div style="flex:1;min-width:0"><div style="font:500 14px/1.2 Barlow,sans-serif;color:#28374F">{{ c.name }}</div>
+<sc-if value="{{ c.hasDual }}" hint-placeholder-val="{{ false }}"><div style="font:400 10.5px/1.2 Barlow,sans-serif;color:#8A8270;margin-top:2px">{{ c.dual }}</div></sc-if></div>
+<div style="width:66px;height:8px;border-radius:100px;background:#EAE4D2;overflow:hidden;display:flex"><div style="height:100%;background:#2E7FB8;width:{{ c.barW }}"></div></div>
+<div style="width:30px;text-align:right;font:700 15px/1 'Barlow Condensed',sans-serif;color:#16305B">{{ c.val }}</div>
+</div>
+</sc-for>
+<div style="font:400 11.5px/1.4 Barlow,sans-serif;color:#8A8270;padding:10px 0 4px">{{ notaConsolidacion }}</div>
+</div>
+<div style="background:#FBF7EC;border:1px solid rgba(224,169,60,.5);border-radius:13px;padding:14px 16px">
+<div style="font:600 13.5px/1.3 Barlow,sans-serif;color:#16305B">En cola para Google Sheets</div>
+<div style="font:400 12.5px/1.45 Barlow,sans-serif;color:#5C5340;margin-top:5px">Una fila por criterio: fecha, sección, estudiante, estilo, criterio, puntaje, nota, evaluador y id local. Si la fila ya existe, se actualiza en vez de duplicarse.</div>
+</div>
+<button onClick="{{ goHome }}" style="width:100%;border:0;background:#2E7FB8;color:#fff;border-radius:13px;padding:16px;cursor:pointer;font:600 16px/1 Barlow,sans-serif">Guardar y evaluar al siguiente</button>
+<button onClick="{{ goEval }}" style="width:100%;border:1px solid rgba(22,48,91,.2);background:transparent;color:#1F4C86;border-radius:13px;padding:14px;cursor:pointer;font:600 15px/1 Barlow,sans-serif">Volver a corregir</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isReporte }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 16px 26px;display:flex;flex-direction:column;gap:13px">
+
+<div style="background:#16305B;border-radius:14px;padding:17px 18px;color:#fff">
+<div style="font:700 10px/1 'Barlow Condensed',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8FBBDD">Promedio de la sección</div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:5px">
+<div style="font:700 42px/1 'Barlow Condensed',sans-serif">{{ repProm }}</div>
+<div style="font:400 12.5px/1.4 Barlow,sans-serif;color:#B9CDE2">{{ repEval }} estudiantes con nota<br />{{ repPruebas }} registradas</div>
+</div>
+<div style="display:flex;gap:9px;margin-top:14px;padding-top:13px;border-top:1px solid rgba(255,255,255,.18)">
+<div style="flex:1"><div style="font:700 17px/1 'Barlow Condensed',sans-serif;color:#F0C9B9">{{ repReprob }}</div><div style="font:600 9.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8FBBDD;margin-top:4px">Bajo 4,0</div></div>
+<div style="flex:1"><div style="font:700 17px/1 'Barlow Condensed',sans-serif">{{ repSinEval }}</div><div style="font:600 9.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8FBBDD;margin-top:4px">Sin evaluar</div></div>
+</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:7px;padding:2px 6px 0">
+<div style="flex:1;font:700 9.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A8270">Estudiante</div>
+<sc-for list="{{ styleCols }}" as="col" hint-placeholder-count="4">
+<div style="width:38px;text-align:center;font:700 11px/1 'Barlow Condensed',sans-serif;color:#2E7FB8">{{ col.ini }}</div>
+</sc-for>
+<div style="width:42px;text-align:center;font:700 9.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#16305B">Gen.</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:5px">
+<sc-for list="{{ repRows }}" as="r" hint-placeholder-count="12">
+<button onClick="{{ r.open }}" style="width:100%;border:1px solid rgba(22,48,91,.1);background:#FFFCF4;border-radius:11px;padding:8px 6px 8px 11px;cursor:pointer;display:flex;align-items:center;gap:7px;text-align:left">
+<div style="flex:1;min-width:0;font:600 13.5px/1.2 Barlow,sans-serif;color:#16305B;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.name }}</div>
+<sc-for list="{{ r.cells }}" as="cell" hint-placeholder-count="4">
+<div style="width:38px;height:30px;border-radius:7px;background:{{ cell.bg }};display:flex;align-items:center;justify-content:center;font:700 15px/1 'Barlow Condensed',sans-serif;color:{{ cell.fg }}">{{ cell.val }}</div>
+</sc-for>
+<div style="width:42px;text-align:center;font:700 19px/1 'Barlow Condensed',sans-serif;color:{{ r.genFg }}">{{ r.gen }}</div>
+</button>
+</sc-for>
+</div>
+
+<div style="font:400 11.5px/1.45 Barlow,sans-serif;color:#8A8270;padding:0 4px">C · Crol, E · Espalda, P · Pecho, M · Mariposa. {{ repEscala }}. La nota general promedia las notas de los estilos ya evaluados; un punto (·) es estilo pendiente.</div>
+
+<button onClick="{{ goHome }}" style="width:100%;border:0;background:#2E7FB8;color:#fff;border-radius:13px;padding:16px;cursor:pointer;font:600 15.5px/1 Barlow,sans-serif">Exportar reporte a Google Sheets</button>
+<div style="font:400 12px/1.4 Barlow,sans-serif;color:#8A8270;text-align:center">Genera la hoja <em>Reporte de notas</em> junto al detalle por criterio.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRubric }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 20px 26px;display:flex;flex-direction:column;gap:9px">
+<div style="font:400 13px/1.5 Barlow,sans-serif;color:#5C5340">Referencia de terreno para los 50 m en piscina de 25 m. Sub acuático y break out se observan dos veces: tras la partida y tras el viraje. En pecho y mariposa el viraje y la llegada exigen toque simultáneo con ambas manos.</div>
+<sc-for list="{{ rubricRows }}" as="c" hint-placeholder-count="8">
+<div style="background:#FFFCF4;border:1px solid rgba(22,48,91,.1);border-radius:13px;padding:14px 16px">
+<div style="display:flex;align-items:baseline;gap:9px"><span style="font:700 13px/1 'Barlow Condensed',sans-serif;color:#8FBBDD">{{ c.num }}</span><span style="font:600 16.5px/1.15 Barlow,sans-serif;color:#16305B">{{ c.name }}</span></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:11px">
+<div style="display:flex;gap:9px"><span style="flex-shrink:0;width:20px;height:20px;border-radius:6px;background:#B4553F;color:#fff;font:700 12px/20px 'Barlow Condensed',sans-serif;text-align:center">1</span><span style="font:400 12.5px/1.45 Barlow,sans-serif;color:#4A4534">{{ c.d1 }}</span></div>
+<div style="display:flex;gap:9px"><span style="flex-shrink:0;width:20px;height:20px;border-radius:6px;background:#9A7A28;color:#fff;font:700 12px/20px 'Barlow Condensed',sans-serif;text-align:center">2</span><span style="font:400 12.5px/1.45 Barlow,sans-serif;color:#4A4534">{{ c.d2 }}</span></div>
+<div style="display:flex;gap:9px"><span style="flex-shrink:0;width:20px;height:20px;border-radius:6px;background:#1B6E7C;color:#fff;font:700 12px/20px 'Barlow Condensed',sans-serif;text-align:center">3</span><span style="font:400 12.5px/1.45 Barlow,sans-serif;color:#4A4534">{{ c.d3 }}</span></div>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+</div>
+
+<div style="flex-shrink:0;display:flex;background:#FFFCF4;border-top:1px solid rgba(22,48,91,.12);padding:9px 8px 30px">
+<button onClick="{{ goHome }}" style="flex:1;border:0;background:transparent;cursor:pointer;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:3px">
+<span style="font:700 17px/1 Barlow,sans-serif;color:{{ tabHome }}">◉</span><span style="font:600 10.5px/1 Barlow,sans-serif;color:{{ tabHome }}">Inicio</span></button>
+<button onClick="{{ goStudents }}" style="flex:1;border:0;background:transparent;cursor:pointer;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:3px">
+<span style="font:700 17px/1 Barlow,sans-serif;color:{{ tabStudents }}">☷</span><span style="font:600 10.5px/1 Barlow,sans-serif;color:{{ tabStudents }}">Estudiantes</span></button>
+<button onClick="{{ goReporte }}" style="flex:1;border:0;background:transparent;cursor:pointer;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:3px">
+<span style="font:700 17px/1 Barlow,sans-serif;color:{{ tabReporte }}">▤</span><span style="font:600 10.5px/1 Barlow,sans-serif;color:{{ tabReporte }}">Reporte</span></button>
+<button onClick="{{ goRubric }}" style="flex:1;border:0;background:transparent;cursor:pointer;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:3px">
+<span style="font:700 17px/1 Barlow,sans-serif;color:{{ tabRubric }}">☰</span><span style="font:600 10.5px/1 Barlow,sans-serif;color:{{ tabRubric }}">Rúbrica</span></button>
+</div>
+
+</div>
+</x-import>
+</div>
+
+</div>
+<p class="dv-next">Prueba escribir: «agrega el cronómetro y el tiempo de los 50 m» · «diferencia la rúbrica por estilo» · «agrega la pantalla de cola de sincronización»</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;escalaPuntaje&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;10 observaciones (máx. 30)&quot;,&quot;8 criterios (máx. 24)&quot;],&quot;default&quot;:&quot;10 observaciones (máx. 30)&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Evaluación&quot;},&quot;exigencia&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:60,&quot;min&quot;:50,&quot;max&quot;:70,&quot;step&quot;:5,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Evaluación&quot;},&quot;autoAvance&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Evaluación&quot;},&quot;estadoSync&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Sin conexión&quot;,&quot;Sincronizando&quot;,&quot;Al día&quot;],&quot;default&quot;:&quot;Sin conexión&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Sincronización&quot;}}">
+const CRITERIA = [
+  { name: 'Salida', hint: 'Reacción, impulso y entrada',
+    d1: 'No reacciona a la señal; entra de pie o desequilibrado, casi sin impulso.',
+    d2: 'Reacciona con demora; impulso débil y entrada plana que frena el avance.',
+    d3: 'Reacción inmediata, extensión completa de piernas y entrada hidrodinámica en flecha.' },
+  { name: 'Sub acuático', hint: 'Flecha y ondulación bajo el agua',
+    d1: 'Emerge de inmediato; no logra posición de flecha ni aprovecha el impulso.',
+    d2: 'Mantiene la flecha un instante y pierde alineación de cabeza o brazos.',
+    d3: 'Flecha alineada y sostenida, con patada ondulatoria continua desde la cadera.' },
+  { name: 'Break out', hint: 'Transición del agua a la superficie',
+    d1: 'Sale a la superficie sin brazada, deteniendo por completo el avance.',
+    d2: 'Coordina la salida pero pierde velocidad al emerger; brazada tardía.',
+    d3: 'Transición fluida: la primera brazada empieza justo antes de emerger, sin frenar.' },
+  { name: 'Respiración', hint: 'Momento, lado y efecto en el cuerpo',
+    d1: 'Levanta la cabeza al frente y detiene el avance; respira sin ritmo.',
+    d2: 'Respira al lado, con ritmo irregular y leve pérdida de alineación.',
+    d3: 'Respiración lateral rítmica y bilateral, sin alterar la posición del cuerpo.' },
+  { name: 'Brazadas', hint: 'Agarre, tracción y recobro',
+    d1: 'Los brazos cruzan la línea media; recorrido incompleto y codo caído.',
+    d2: 'Recorrido completo, con agarre inconsistente y recobro tenso.',
+    d3: 'Agarre firme con codo alto, tracción completa hasta la cadera y recobro relajado.' },
+  { name: 'Patadas', hint: 'Origen, amplitud y continuidad',
+    d1: 'Patea desde la rodilla, con tobillo rígido y sin propulsión.',
+    d2: 'Patea desde la cadera pero con amplitud irregular y pausas.',
+    d3: 'Patada continua desde la cadera, tobillo suelto y amplitud constante.' },
+  { name: 'Viraje', hint: 'Aproximación, giro y empuje',
+    d1: 'Toca y se detiene; se incorpora y parte sin empuje de pared.',
+    d2: 'Ejecuta el viraje completo con pérdida evidente de velocidad.',
+    d3: 'Viraje compacto, pies bien apoyados, empuje potente y salida en flecha.' },
+  { name: 'Llegada', hint: 'Última brazada y toque final',
+    d1: 'Desacelera varios metros antes y toca sin control.',
+    d2: 'Llega sin ajustar la última brazada; toque impreciso.',
+    d3: 'Mantiene la velocidad, ajusta la última brazada y toca según la norma del estilo.' },
+];
+
+// Puntajes por estilo (sobre 24, base de referencia). Las notas se derivan siempre con this.nota().
+const STYLES = ['Crol', 'Espalda', 'Pecho', 'Mariposa'];
+const SEED = [
+  { name: 'Aguilera Soto, Ignacio', e: [20, 18, 17, null] },
+  { name: 'Bravo Muñoz, Antonia', e: [15, null, null, null] },
+  { name: 'Ríos Vega, Camila', e: [19, null, null, null] },
+  { name: 'Cárdenas Pinto, Diego', e: [22, 21, 20, 21] },
+  { name: 'Espinoza Lara, Fernanda', e: [null, null, null, null] },
+  { name: 'Fuentes Rojas, Martín', e: [16, null, null, null] },
+  { name: 'Gálvez Torres, Josefa', e: [13, 14, null, null] },
+  { name: 'Herrera Soto, Valentina', e: [21, 19, 18, null] },
+  { name: 'Muñoz Lagos, Tomás', e: [17, 15, null, null] },
+  { name: 'Salinas Peña, Emilia', e: [23, 22, 21, 20] },
+  { name: 'Tapia Ruiz, Benjamín', e: [12, 11, null, null] },
+  { name: 'Vergara Díaz, Isidora', e: [18, 17, 16, null] },
+].map(st => {
+  const done = st.e.filter(p => p !== null);
+  const labels = STYLES.filter((_, i) => st.e[i] !== null);
+  return {
+    ...st, pts: done,
+    detail: done.length
+      ? labels.join(', ') + ' · ' + done.length + ' de 4'
+      : 'Sin evaluaciones',
+  };
+});
+
+// Piscina de 25 m: los 50 m son dos largos, con sub acuático y break out
+// observados dos veces (salida y viraje). 10 observaciones → 8 criterios.
+const ROWS = [
+  { k: 'salida', c: 0, group: 'Partida · largo 1', dist: '0 – 15 m', tag: '', where: 'Poyete y entrada al agua' },
+  { k: 'sub1',   c: 1, group: 'Partida · largo 1', dist: '0 – 15 m', tag: 'Ida', where: 'Bajo el agua tras la partida' },
+  { k: 'bo1',    c: 2, group: 'Partida · largo 1', dist: '0 – 15 m', tag: 'Ida', where: 'Al emerger, antes de los 15 m' },
+  { k: 'resp',   c: 3, group: 'Nado · largo 1', dist: '15 – 25 m', tag: '', where: 'Nado continuo hacia la pared' },
+  { k: 'braz',   c: 4, group: 'Nado · largo 1', dist: '15 – 25 m', tag: '', where: 'Nado continuo hacia la pared' },
+  { k: 'pat',    c: 5, group: 'Nado · largo 1', dist: '15 – 25 m', tag: '', where: 'Nado continuo hacia la pared' },
+  { k: 'vir',    c: 6, group: 'Viraje', dist: '25 m', tag: '', where: 'Pared de los 25 m' },
+  { k: 'sub2',   c: 1, group: 'Largo 2', dist: '25 – 40 m', tag: 'Vuelta', where: 'Bajo el agua tras el viraje' },
+  { k: 'bo2',    c: 2, group: 'Largo 2', dist: '25 – 40 m', tag: 'Vuelta', where: 'Al emerger después del viraje' },
+  { k: 'lleg',   c: 7, group: 'Llegada', dist: '50 m', tag: '', where: 'Última brazada y toque final' },
+];
+// Los dos criterios que se observan dos veces promedian ida y vuelta (hacia abajo).
+const DUAL = { 1: ['sub1', 'sub2'], 2: ['bo1', 'bo2'] };
+
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    sesion: {
+      asignatura: 'Natación Básica UMCE',
+      seccion: 'Sección 2',
+      lugar: 'Piscina UMCE',
+      horario: 'Miércoles 09:00 — 10:00',
+      estilos: 'Crol y Espalda',
+    },
+    scores: { salida: 3, sub1: 2, bo1: 2, resp: 3, braz: 2 },
+    open: null,
+    incompleta: false,
+    bIdx: 2,
+    bScores: { salida: 3, sub1: 2 },
+    lSel: 3,
+    lScores: { salida: 3, sub1: 2, bo1: 2 },
+  };
+
+  exigencia() { return (this.props.exigencia ?? 60) / 100; }
+
+  // nota chilena 1,0–7,0 sobre el puntaje máximo observado
+  nota(pts, max) {
+    const m = max || 24;
+    if (!m) return '—';
+    const aprob = m * this.exigencia();
+    const n = pts < aprob ? 1 + 3 * (pts / aprob) : 4 + 3 * ((pts - aprob) / (m - aprob));
+    return n.toFixed(1).replace('.', ',');
+  }
+
+  setSesion(campo) {
+    return e => {
+      const v = e.target.value;
+      this.setState(st => ({ sesion: { ...st.sesion, [campo]: v } }));
+    };
+  }
+
+  // promedio de las NOTAS de varios estilos (nunca de los puntajes brutos)
+  promedio(ptsList, max) {
+    const ns = ptsList.map(p => parseFloat(this.nota(p, max || 24).replace(',', '.')));
+    if (!ns.length) return '—';
+    return (ns.reduce((a, b) => a + b, 0) / ns.length).toFixed(1).replace('.', ',');
+  }
+
+  // 8 criterios oficiales a partir de las 10 observaciones
+  official(sc) {
+    return CRITERIA.map((c, i) => {
+      if (DUAL[i]) {
+        const vs = DUAL[i].map(k => sc[k]).filter(v => v !== undefined);
+        if (!vs.length) return null;
+        return Math.floor(vs.reduce((a, b) => a + b, 0) / vs.length);
+      }
+      const row = ROWS.find(r => r.c === i);
+      const v = sc[row.k];
+      return v === undefined ? null : v;
+    });
+  }
+
+  go(screen) { return () => this.setState({ screen }); }
+
+  renderVals() {
+    const s = this.state;
+    const auto = this.props.autoAvance ?? true;
+    const sync = this.props.estadoSync ?? 'Sin conexión';
+    const DOT = { 1: '#B4553F', 2: '#9A7A28', 3: '#1B6E7C' };
+
+    const esc30 = String(this.props.escalaPuntaje ?? '10 observaciones (máx. 30)').indexOf('30') > -1;
+    const MAXP = esc30 ? 30 : 24;
+    const seed = p => Math.round((p / 24) * MAXP);
+    const filled = Object.keys(s.scores).length;
+    const off = this.official(s.scores);
+    const obs = off.filter(v => v !== null);
+    const pts = esc30
+      ? Object.values(s.scores).reduce((a, b) => a + b, 0)
+      : obs.reduce((a, b) => a + b, 0);
+    const maxPts = s.incompleta ? (esc30 ? filled : obs.length) * 3 : MAXP;
+    const notaActual = this.nota(pts, maxPts);
+    // La nota general promedia las NOTAS de cada estilo, no los puntajes brutos
+    // (cada estilo puede tener un puntaje máximo distinto si la prueba fue incompleta).
+    const notaNum = t => parseFloat(String(t).replace(',', '.'));
+    const repTotal = SEED.length;
+    const repDone = SEED.filter(st => st.pts.length).length;
+    const notasEstilos = [notaNum(notaActual), notaNum(this.nota(seed(19), MAXP))].filter(n => !isNaN(n));
+    const promGeneral = notasEstilos.length
+      ? (notasEstilos.reduce((a, b) => a + b, 0) / notasEstilos.length).toFixed(1).replace('.', ',')
+      : '—';
+
+    const setScore = (k, v) => () => this.setState(st => ({
+      scores: { ...st.scores, [k]: v },
+      open: auto ? null : st.open,
+    }));
+
+    const critRows = ROWS.map((r, i) => {
+      const c = CRITERIA[r.c], v = s.scores[r.k];
+      return {
+        name: c.name, hint: r.where, tag: r.tag, hasTag: !!r.tag,
+        group: r.group, dist: r.dist,
+        newGroup: i === 0 || r.group !== ROWS[i - 1].group,
+        d1: c.d1, d2: c.d2, d3: c.d3,
+        sel1: v === 1, sel2: v === 2, sel3: v === 3,
+        no1: v !== 1, no2: v !== 2, no3: v !== 3,
+        set1: setScore(r.k, 1), set2: setScore(r.k, 2), set3: setScore(r.k, 3),
+        open: s.open === r.k,
+        toggle: () => this.setState(st => ({ open: st.open === r.k ? null : r.k })),
+      };
+    });
+
+    const sumRows = CRITERIA.map((c, i) => {
+      const v = off[i];
+      const dual = DUAL[i] ? DUAL[i].map(k => s.scores[k] === undefined ? '·' : s.scores[k]).join(' / ') : '';
+      return {
+        name: c.name, num: '0' + (i + 1), d1: c.d1, d2: c.d2, d3: c.d3,
+        val: v === null ? 'N/O' : String(v),
+        barW: v === null ? '0%' : Math.round((v / 3) * 100) + '%',
+        dual: dual ? 'ida / vuelta ' + dual : '',
+        hasDual: !!dual,
+      };
+    });
+
+    const bIdx = s.bIdx, bR = ROWS[bIdx], bC = CRITERIA[bR.c], bV = s.bScores[bR.k];
+    const bOff = this.official(s.bScores).filter(v => v !== null);
+    const bPts = esc30
+      ? Object.values(s.bScores).reduce((a, b) => a + b, 0)
+      : bOff.reduce((a, b) => a + b, 0);
+    const bSet = v => () => this.setState(st => ({
+      bScores: { ...st.bScores, [bR.k]: v },
+      bIdx: auto ? Math.min(ROWS.length - 1, bIdx + 1) : bIdx,
+    }));
+
+    const lIdx = s.lSel, lR = ROWS[lIdx], lC = CRITERIA[lR.c], lV = s.lScores[lR.k];
+    const lOff = this.official(s.lScores).filter(v => v !== null);
+    const lPts = esc30
+      ? Object.values(s.lScores).reduce((a, b) => a + b, 0)
+      : lOff.reduce((a, b) => a + b, 0);
+    const lSet = v => () => this.setState(st => ({
+      lScores: { ...st.lScores, [lR.k]: v },
+      lSel: auto ? Math.min(ROWS.length - 1, lIdx + 1) : lIdx,
+    }));
+
+    const titles = {
+      home: 'Sesión de hoy', students: s.sesion.seccion + ' · Gen. 2026', new: 'Nuevo estudiante',
+      style: 'Estilo a evaluar', eval: 'Evaluación en terreno',
+      sesion: 'Editar sesión',
+      summary: 'Resumen del estilo', rubric: 'Rúbrica de natación',
+      reporte: 'Reporte de notas',
+    };
+
+    return {
+      headerTitle: titles[s.screen],
+      syncLabel: sync,
+      isHome: s.screen === 'home', isStudents: s.screen === 'students',
+      isNew: s.screen === 'new', isStyle: s.screen === 'style',
+      isEval: s.screen === 'eval', isSummary: s.screen === 'summary',
+      isRubric: s.screen === 'rubric', isSesion: s.screen === 'sesion',
+      isReporte: s.screen === 'reporte', goReporte: this.go('reporte'),
+      goSesion: this.go('sesion'),
+      sAsignatura: s.sesion.asignatura,
+      sLinea1: s.sesion.seccion + ' · ' + s.sesion.lugar,
+      sLinea2: s.sesion.horario + ' · ' + s.sesion.estilos,
+      sAsignaturaVal: s.sesion.asignatura, sLugarVal: s.sesion.lugar,
+      sHorarioVal: s.sesion.horario, sEstilosVal: s.sesion.estilos,
+      setAsignatura: this.setSesion('asignatura'),
+      setLugar: this.setSesion('lugar'),
+      setHorario: this.setSesion('horario'),
+      setEstilos: this.setSesion('estilos'),
+      seccionOpts: ['Sección 1', 'Sección 2', 'Sección 3'].map(n => ({
+        name: n,
+        bg: n === s.sesion.seccion ? '#16305B' : '#FFFCF4',
+        fg: n === s.sesion.seccion ? '#fff' : '#28374F',
+        pick: () => this.setState(st => ({ sesion: { ...st.sesion, seccion: n } })),
+      })),
+      goHome: this.go('home'), goStudents: this.go('students'), goNew: this.go('new'),
+      goStyle: this.go('style'), goEval: this.go('eval'), goSummary: this.go('summary'),
+      goRubric: this.go('rubric'),
+      doneCount: String(repDone),
+      totalCount: String(repTotal),
+      barWidth: Math.round((repDone / repTotal) * 100) + '%',
+      pendingCount: sync === 'Al día' ? '0 evaluaciones' : '4 evaluaciones',
+      paceLeft: (repTotal - repDone) + ' estudiantes · ' + ((repTotal - repDone) * 3) + ' min restantes',
+      tabHome: s.screen === 'home' ? '#16305B' : '#8A8270',
+      tabStudents: s.screen === 'students' ? '#16305B' : '#8A8270',
+      tabReporte: s.screen === 'reporte' ? '#16305B' : '#8A8270',
+      tabRubric: s.screen === 'rubric' ? '#16305B' : '#8A8270',
+      recent: [
+        { ini: 'CP', name: 'Cárdenas Pinto, Diego', detail: 'Mariposa · ' + seed(21) + ' pts · subido', nota: this.nota(seed(21), MAXP) },
+        { ini: 'GT', name: 'Gálvez Torres, Josefa', detail: 'Espalda · ' + seed(14) + ' pts · en cola', nota: this.nota(seed(14), MAXP) },
+        { ini: 'FR', name: 'Fuentes Rojas, Martín', detail: 'Crol · ' + seed(16) + ' pts · en cola', nota: this.nota(seed(16), MAXP) },
+      ],
+      students: SEED.map(st => ({
+        ini: st.name.split(', ')[1].slice(0, 1) + st.name.slice(0, 1),
+        name: st.name, detail: st.detail,
+        nota: st.pts.length ? this.promedio(st.pts.map(seed), MAXP) : '—',
+        notaLabel: st.pts.length ? 'General' : 'Pendiente',
+        open: this.go('style'),
+      })),
+      chipSeccion: s.sesion.seccion + ' · ' + repTotal,
+      styleCols: STYLES.map(n => ({ ini: n.slice(0, 1) })),
+      repRows: SEED.map(st => {
+        const notas = st.e.map(p => p === null ? null : this.nota(seed(p), MAXP));
+        const gen = st.pts.length ? this.promedio(st.pts.map(seed), MAXP) : null;
+        const genNum = gen ? parseFloat(gen.replace(',', '.')) : null;
+        return {
+          name: st.name,
+          cells: notas.map(n => ({
+            val: n === null ? '·' : n,
+            fg: n === null ? '#B5AE9B' : parseFloat(n.replace(',', '.')) < 4 ? '#B4553F' : '#28374F',
+            bg: n === null ? 'transparent' : parseFloat(n.replace(',', '.')) < 4 ? '#FBF1EC' : '#F2EFE3',
+          })),
+          gen: gen || '—',
+          genFg: genNum === null ? '#B5AE9B' : genNum < 4 ? '#B4553F' : '#1B6E7C',
+          open: this.go('style'),
+        };
+      }),
+      repProm: (() => {
+        const ns = SEED.filter(st => st.pts.length)
+          .map(st => parseFloat(this.promedio(st.pts.map(seed), MAXP).replace(',', '.')));
+        return ns.length ? (ns.reduce((a, b) => a + b, 0) / ns.length).toFixed(1).replace('.', ',') : '—';
+      })(),
+      repEval: SEED.filter(st => st.pts.length).length + ' de ' + SEED.length,
+      repPruebas: SEED.reduce((a, st) => a + st.pts.length, 0) + ' pruebas de 50 m',
+      repReprob: (() => {
+        const n = SEED.filter(st => st.pts.length &&
+          parseFloat(this.promedio(st.pts.map(seed), MAXP).replace(',', '.')) < 4).length;
+        return n === 0 ? 'ninguno' : n === 1 ? '1 estudiante' : n + ' estudiantes';
+      })(),
+      repSinEval: SEED.filter(st => !st.pts.length).length,
+      repEscala: 'Escala 1,0–7,0 · exigencia ' + (this.props.exigencia ?? 60) + '% · ' + (esc30 ? 'máx. 30 pts' : 'máx. 24 pts'),
+      styleCards: [
+        { name: 'Crol', status: '50 m evaluados el 2 de sept · ' + seed(19) + ' pts', nota: this.nota(seed(19), MAXP), pts: seed(19) + '/' + MAXP, open: this.go('eval') },
+        { name: 'Espalda', status: 'En curso · ' + filled + ' de 10 observaciones', nota: notaActual, pts: pts + '/' + maxPts, open: this.go('eval') },
+        { name: 'Pecho', status: 'Pendiente', nota: '—', pts: '0/' + MAXP, open: this.go('eval') },
+        { name: 'Mariposa', status: 'Pendiente', nota: '—', pts: '0/' + MAXP, open: this.go('eval') },
+      ],
+      fichaNota: promGeneral,
+      fichaSeccion: s.sesion.seccion + ' · 2 de 4 estilos evaluados',
+      critRows, sumRows,
+      rubricRows: sumRows,
+      evalPts: String(pts),
+      evalMax: String(maxPts),
+      evalProgress: filled + ' de 10 observaciones · nota parcial ' + notaActual,
+      evalCta: filled === ROWS.length
+        ? 'Cerrar evaluación · nota ' + notaActual
+        : s.incompleta
+          ? 'Cerrar prueba incompleta · nota ' + notaActual
+          : 'Faltan ' + (ROWS.length - filled) + ' observaciones',
+      evalNota: notaActual,
+      evalPtsLabel: pts + ' de ' + maxPts + ' puntos',
+      incompleta: s.incompleta,
+      completa: !s.incompleta,
+      incompletaLabel: (esc30 ? filled + ' de 10 observaciones registradas' : obs.length + ' de 8 criterios observados') + ' · lo no observado queda N/O y no baja la nota',
+      escalaLabel: (esc30 ? '10 observaciones' : '8 criterios') + (s.incompleta ? ' · escala 1–3' : esc30 ? ' · máx. 30 pts' : ' · máx. 24 pts'),
+      notaConsolidacion: esc30
+        ? 'Sub acuático y break out se observan dos veces (partida y viraje) y ambas suman al puntaje total. La columna muestra el promedio del criterio.'
+        : 'Sub acuático y break out se observan dos veces (partida y viraje); el criterio toma el promedio redondeado hacia abajo.',
+      toggleIncompleta: () => this.setState(st => ({ incompleta: !st.incompleta })),
+      exigenciaLabel: (this.props.exigencia ?? 60) + '%',
+      notaGeneral: promGeneral,
+      notaGeneralDetail: s.incompleta ? 'Promedio de Crol y Espalda · Espalda incompleta' : 'Promedio de Crol y Espalda',
+
+      bStep: (bIdx + 1) + '/' + ROWS.length,
+      bTotal: String(ROWS.length),
+      bNum: '0' + (bIdx + 1),
+      bName: bC.name, bHint: bR.tag ? bR.tag + ' · ' + bR.where : bR.where,
+      bD1: bC.d1, bD2: bC.d2, bD3: bC.d3,
+      bPts: String(bPts), bNota: this.nota(bPts, MAXP), bMax: String(MAXP),
+      bChosen: bV ? 'Registrado: ' + bV + ' punto' + (bV > 1 ? 's' : '') : 'Sin registrar todavía',
+      bSet1: bSet(1), bSet2: bSet(2), bSet3: bSet(3),
+      bPrev: () => this.setState({ bIdx: Math.max(0, bIdx - 1) }),
+      bNext: () => this.setState({ bIdx: Math.min(ROWS.length - 1, bIdx + 1) }),
+      bDots: ROWS.map((r, i) => ({
+        bg: s.bScores[r.k] ? '#4A96C4' : i === bIdx ? '#fff' : 'rgba(255,255,255,.22)',
+      })),
+
+      lPts: String(lPts), lNota: this.nota(lPts, MAXP), lMax: String(MAXP),
+      lName: lR.tag ? lC.name + ' · ' + lR.tag : lC.name,
+      lWhere: lR.group + ' · ' + lR.dist,
+      lDesc: lV ? lC['d' + lV] : lR.where + ' — elige el nivel observado.',
+      lSel1: lV === 1, lSel2: lV === 2, lSel3: lV === 3,
+      lNo1: lV !== 1, lNo2: lV !== 2, lNo3: lV !== 3,
+      lSet1: lSet(1), lSet2: lSet(2), lSet3: lSet(3),
+      laneRows: ROWS.map((r, i) => {
+        const v = s.lScores[r.k];
+        return {
+          name: r.tag ? CRITERIA[r.c].name + ' · ' + r.tag : CRITERIA[r.c].name,
+          where: r.where,
+          val: v ? String(v) : '·',
+          dot: v ? DOT[v] : i === lIdx ? '#2E7FB8' : '#CFC8B4',
+          pick: () => this.setState({ lSel: i }),
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>
