@@ -2,21 +2,19 @@
 // (menú "Ejecutar" con la función seleccionada). No las llama la app móvil.
 
 /**
- * 1. Reemplaza el texto de abajo por una clave larga tuya (ej. generada con
- *    `openssl rand -hex 32` en una terminal, o cualquier string difícil de
- *    adivinar).
+ * 1. Reemplaza el valor de CLAVE de abajo (entre comillas) por una clave tuya
+ *    (ej. generada con `openssl rand -hex 32` en una terminal, o cualquier
+ *    string difícil de adivinar).
  * 2. Selecciona esta función en el menú de arriba del editor y presiona ▶ Ejecutar.
  * 3. La primera vez te va a pedir autorizar el script — es normal, es tu propio
  *    proyecto accediendo a tu propia hoja.
- * 4. Copia esa misma clave a EXPO_PUBLIC_API_KEY en mobile/.env.
+ * 4. Revisa el panel de Ejecución: debe decir "API key guardada: [tu-clave]".
+ * 5. Copia esa misma clave a EXPO_PUBLIC_API_KEY en mobile/.env.
  */
 function guardarApiKey() {
-  const CLAVE = 'CAMBIA_ESTO_POR_UNA_CLAVE_LARGA_Y_UNICA';
-  if (CLAVE === 'CAMBIA_ESTO_POR_UNA_CLAVE_LARGA_Y_UNICA') {
-    throw new Error('Edita CLAVE en Configuracion.gs antes de ejecutar guardarApiKey().');
-  }
+  const CLAVE = 'TU_CLAVE_AQUI';
   PropertiesService.getScriptProperties().setProperty('API_KEY', CLAVE);
-  Logger.log('API key guardada.');
+  Logger.log('API key guardada: [' + CLAVE + ']');
 }
 
 /**

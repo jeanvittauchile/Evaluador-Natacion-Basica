@@ -28,6 +28,12 @@
       "expo-sqlite",
       "expo-font",
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f4252ea4-c3da-43d6-8280-c48a92cc4c48"
+      }
+    },
+    "owner": "jean.vitta"
   }
 }
