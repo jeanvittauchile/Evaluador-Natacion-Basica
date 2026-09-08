@@ -64,7 +64,6 @@ export interface ErrorClasificado {
   reintentable: boolean;
   motivo: string;
   requiereReauth?: boolean;
-  recrearPlanilla?: boolean;
 }
 
 export function marcarError(id: number, intentosPrevios: number, error: ErrorClasificado): void {

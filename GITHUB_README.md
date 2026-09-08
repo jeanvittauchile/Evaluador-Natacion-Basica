@@ -4,7 +4,7 @@ App móvil para evaluar la técnica de natación de estudiantes de **Pedagogía 
 
 ## Estado
 
-Implementación en curso: dominio de cálculo de notas (con tests), persistencia SQLite, las 9 pantallas y la cola de sincronización están construidos. La integración real con Google Sheets está detrás de una interfaz mockeada — ver `server/README.md` para activarla con credenciales propias.
+Implementación en curso: dominio de cálculo de notas (con tests), persistencia SQLite, las 9 pantallas y la cola de sincronización están construidos. La integración real con Google Sheets está detrás de una interfaz mockeada — ver `apps-script/README.md` para activarla con tu propia planilla.
 
 ## Estructura
 
@@ -14,7 +14,7 @@ Implementación en curso: dominio de cálculo de notas (con tests), persistencia
   - `src/screens/` — las 9 pantallas descritas en `README.md`.
   - `src/services/sync/` — worker de sincronización (backoff, reintentos, idempotencia por `id_local`).
   - `src/services/sheets/` — cliente hacia el backend, con un mock automático cuando no hay backend configurado.
-- `server/` — backend serverless en Vercel: intercambio OAuth2 y proxy a la Sheets API. La app móvil nunca guarda el client secret ni habla con Google directamente. Ver `server/README.md` para la puesta en marcha completa.
+- `apps-script/` — el backend: un Google Apps Script Web App atado a la planilla. Corre dentro de la cuenta de Google dueña de la hoja, así que no hay OAuth2 propio, ni client secret, ni servidor que desplegar aparte. Ver `apps-script/README.md` para la puesta en marcha completa.
 - `README.md` — especificación completa de diseño e implementación (fuente de verdad).
 - `CLAUDE.md` — instrucciones de trabajo para Claude Code.
 - `Natación VITTA.dc.html` — prototipo navegable de las 9 pantallas (referencia de diseño, no se porta como código). Ábrelo en un navegador.
@@ -30,17 +30,16 @@ npm start        # abre Expo Dev Tools — elige Android, iOS o Web
 npm test         # tests del dominio de cálculo
 ```
 
-Sin `EXPO_PUBLIC_API_BASE_URL`/`EXPO_PUBLIC_API_KEY` configurados (ver `mobile/.env.example`), la sincronización usa un cliente simulado y no requiere ninguna credencial de Google.
+Sin `EXPO_PUBLIC_APPS_SCRIPT_URL`/`EXPO_PUBLIC_API_KEY` configurados (ver `mobile/.env.example`), la sincronización usa un cliente simulado y no requiere ninguna credencial de Google.
 
 ## Activar Google Sheets de verdad
 
-```bash
-cd server
-npm install
-```
-
-Sigue `server/README.md` — son ~10 minutos: crear el proyecto en Google Cloud, desplegar en Vercel, visitar una URL de consentimiento una vez, y copiar dos valores a las variables de entorno.
+Sigue `apps-script/README.md` — son ~10 minutos, todo desde el navegador: crear
+el proyecto de Apps Script desde tu propia Google Sheet (Extensiones → Apps
+Script), pegar el código de `apps-script/`, implementarlo como Web App, y
+copiar la URL + una clave propia a `mobile/.env`. No requiere Google Cloud
+Console ni una cuenta de Vercel.
 
 ## Stack
 
-React Native (Expo) + TypeScript · expo-sqlite · NetInfo para la cola de sincronización · backend serverless en Vercel para OAuth2 + Sheets API.
+React Native (Expo) + TypeScript · expo-sqlite · NetInfo para la cola de sincronización · Google Apps Script como backend de Sheets.

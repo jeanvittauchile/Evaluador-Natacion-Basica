@@ -70,7 +70,6 @@ async function enviarUno(item: { id: number; evaluacion_id: string; intentos: nu
       reintentable: err.reintentable,
       motivo: err.message,
       requiereReauth: err.requiereReauth,
-      recrearPlanilla: err.recrearPlanilla,
     });
   }
 }
