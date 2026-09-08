@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Natación UMCE",
+    "slug": "natacion-umce",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F7F4E9",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "cl.umce.natacion"
+    },
+    "android": {
+      "package": "cl.umce.natacion",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-sqlite",
+      "expo-font",
+      "expo-secure-store"
+    ]
+  }
+}

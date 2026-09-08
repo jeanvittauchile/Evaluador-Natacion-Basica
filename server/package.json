@@ -1,0 +1,14 @@
+{
+  "name": "natacion-umce-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.0",
+    "@vercel/node": "^3.2.0",
+    "typescript": "^5.6.0"
+  }
+}
